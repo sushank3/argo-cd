@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapplication
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argo
+    notifications.argoproj.io/subscribe.on-deployed.slack: argo
+    notifications.argoproj.io/subscribe.on-deleted.slack: argo
+spec:
+  project: default
+  source:
+    # repoURL: 'https://gitlab.com/sushank3/ci_cd-portfolio.git'
+    repoURL: 'https://github.com/sushank3/voting-app.git'
+    path: .
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: testnamespace
+  syncPolicy:
+    automated: {}
